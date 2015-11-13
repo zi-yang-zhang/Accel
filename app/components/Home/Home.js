@@ -4,6 +4,15 @@
 // LIBRARY
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
+import firstImage from '../../../assets/1.jpg';
+import secondImage from '../../../assets/2.jpg';
+
+import thirdImage from '../../../assets/3.jpg';
+import fourthImage from '../../../assets/4.jpg';
+import fifthImage from '../../../assets/5.jpg';
+import sixthImage from '../../../assets/6.jpg';
+
+
 
 if (process.env.BROWSER) {
   require('./Home.less');
@@ -18,22 +27,22 @@ export default class HomeSection extends React.Component {
   render() {
     const images = [
       {
-        original:'../../../assets/1.jpg'
+        original:firstImage
       },
       {
-        original:'../../../assets/2.jpg'
+        original:secondImage
       },
       {
-        original:'../../../assets/3.jpg'
+        original:thirdImage
       },
       {
-        original:'../../../assets/4.jpg'
+        original:fourthImage
       },
       {
-        original:'../../../assets/5.jpg'
+        original:fifthImage
       },
       {
-        original:'../../../assets/6.jpg'
+        original:sixthImage
       }
     ];
     return (
