@@ -1,0 +1,12 @@
+@import "../../../node_modules/material-design-lite/material.min.css";
+body::before {
+  background-size: cover;
+  content: '';
+  will-change: transform;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  position: fixed;
+}

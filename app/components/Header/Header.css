@@ -1,0 +1,6 @@
+@import "../../../node_modules/material-design-lite/material.min.css";
+.mdl-tabs {
+  background: transparent;
+  position: fixed;
+  top: 0px;
+}
