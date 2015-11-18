@@ -1,7 +1,6 @@
 // LIBRARY
-import Iso from 'iso';
-import React from 'react';
-import Router from 'react-router';
+import {Router} from 'react-router';
+import { render } from 'react-dom'
 
 // DEPENDENCY
 import alt from './alt';
@@ -13,9 +12,7 @@ if(typeof document !== 'undefined' && window) {
     /*eslint-disable no-unused-vars*/
     Iso.bootstrap((state, _, container) => {
       alt.bootstrap(state);
-      Router.run(routes, Router.HistoryLocation, (Handler) => {
-        React.render(<Handler/>, container);
-      });
+      render(routes, container)
     });
     /*eslint-enable no-unused-vars*/
   };

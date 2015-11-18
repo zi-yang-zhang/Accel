@@ -17,7 +17,7 @@ import sixthImage from '../../../assets/6.jpg';
 if (process.env.BROWSER) {
   require('./Home.less');
 }
-export default class HomeSection extends React.Component {
+export default class Home extends React.Component {
   constructor() {
     super();
   }
@@ -46,20 +46,18 @@ export default class HomeSection extends React.Component {
       }
     ];
     return (
-      <section className='mdl-layout__content home-bg'>
+      <div>
         <ImageGallery
         items={images}
         autoPlay={true}
         slideInterval={4000}
+        showBullets={true}
         showThumbnails={false}/>
-        <div className='brand'>
-          <h1 className='brand_name'>Accel Auto</h1>
-        </div>
-      </section>
+      </div>
     );
   }
 }
 
 
-HomeSection.prototype.displayName = 'HomeSection';
+Home.prototype.displayName = 'Home';
 

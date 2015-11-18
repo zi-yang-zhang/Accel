@@ -3,6 +3,10 @@
  */
 // LIBRARY
 import React from 'react';
+import { Link } from 'react-router'
+import { Navbar, Nav, NavItem }from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap'
+import logo from '../../../assets/logo.jpg';
 
 if (process.env.BROWSER) {
 	require('./Header.less');
@@ -14,15 +18,25 @@ export default class Header extends React.Component {
 
 	render() {
 		return (
-			<div className='mdl-tabs mdl-js-tabs mdl-js-ripple-effect'>
-				<div className="mdl-tabs__tab-bar">
-					<a href="#home" className="mdl-tabs__tab is-active">Home</a>
-					<a href="#contact" className="mdl-tabs__tab">Contact</a>
-					<a href="#service" className="mdl-tabs__tab">Service</a>
-					<a href="#gallery" className="mdl-tabs__tab">Gallery</a>
-					<a href="#about" className="mdl-tabs__tab">About</a>
-				</div>
-			</div>
+			<Navbar>
+				<Nav>
+					<LinkContainer to="/home">
+						<NavItem>Home</NavItem>
+					</LinkContainer>
+					<LinkContainer to="/contact">
+						<NavItem>Contact</NavItem>
+					</LinkContainer>
+					<LinkContainer to="/service" >
+						<NavItem>Service</NavItem>
+					</LinkContainer>
+					<LinkContainer to="/gallery">
+						<NavItem>Gallery</NavItem>
+					</LinkContainer>
+					<LinkContainer to="/about" >
+						<NavItem>About</NavItem>
+					</LinkContainer>
+				</Nav>
+			</Navbar>
 		);
 	}
 }

@@ -3,17 +3,17 @@
  */
 // LIBRARY
 import React from 'react';
-import { RouteHandler } from 'react-router';
+import Router from 'react-router';
 
 // COMPONENT
 
 import HtmlHeaderTags from '../HTMLHeader/HtmlHeaderTags';
 import Header from '../Header/Header';
+import Logo from '../Logo/Logo';
 
 if (process.env.BROWSER) {
   require('./App.less');
 }
-
 
 export default class App extends React.Component {
   constructor() {
@@ -24,10 +24,9 @@ export default class App extends React.Component {
     return (
       <div>
         <HtmlHeaderTags />
+        <Logo/>
         <Header/>
-        <div>
-          <RouteHandler />
-        </div>
+        {this.props.children}
       </div>
     );
   }
