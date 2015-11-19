@@ -2,7 +2,7 @@
  * Created by robertzzy on 15/11/15.
  */
 import React from 'react';
-import logo from '../../../assets/logo.jpg';
+import logo from '../../../assets/logo.png';
 
 
 if (process.env.BROWSER) {

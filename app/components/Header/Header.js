@@ -6,7 +6,6 @@ import React from 'react';
 import { Link } from 'react-router'
 import { Navbar, Nav, NavItem }from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
-import logo from '../../../assets/logo.jpg';
 
 if (process.env.BROWSER) {
 	require('./Header.less');

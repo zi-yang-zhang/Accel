@@ -127,7 +127,7 @@ module.exports = function(options) {
         loaders: [
           { test: /\.js?$/, loaders: ['react-hot', 'babel'], exclude: [/node_modules/, /__tests__/] },
           { test: /\.(jpe?g|png|gif|svg|woff|eot|ttf|jpg)$/, loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]' },
-          { test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, loader: 'url-loader?limit=100000' },
+          { test: /.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, loader: 'url-loader?limit=100000' },
           { test: /\.sass$/, loader: sassLoaders },
           { test: /\.css$/, loader: cssLoaders },
           { test: /\.less$/,  loader: 'style!css!less'},

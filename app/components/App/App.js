@@ -10,6 +10,7 @@ import Router from 'react-router';
 import HtmlHeaderTags from '../HTMLHeader/HtmlHeaderTags';
 import Header from '../Header/Header';
 import Logo from '../Logo/Logo';
+import Footer from '../Footer/Footer';
 
 if (process.env.BROWSER) {
   require('./App.less');
@@ -27,6 +28,7 @@ export default class App extends React.Component {
         <Logo/>
         <Header/>
         {this.props.children}
+        <Footer/>
       </div>
     );
   }
