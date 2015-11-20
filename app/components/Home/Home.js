@@ -4,13 +4,13 @@
 // LIBRARY
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
-import firstImage from '../../../assets/1.jpg';
-import secondImage from '../../../assets/2.jpg';
+import firstImage from '../../../assets/image/1.jpg';
+import secondImage from '../../../assets/image/2.jpg';
 
-import thirdImage from '../../../assets/3.jpg';
-import fourthImage from '../../../assets/4.jpg';
-import fifthImage from '../../../assets/5.jpg';
-import sixthImage from '../../../assets/6.jpg';
+import thirdImage from '../../../assets/image/3.jpg';
+import fourthImage from '../../../assets/image/4.jpg';
+import fifthImage from '../../../assets/image/5.jpg';
+import sixthImage from '../../../assets/image/6.jpg';
 
 import {Modal} from 'react-bootstrap';
 

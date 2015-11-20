@@ -141,7 +141,7 @@ module.exports = function(options) {
   else {
     // SERVER
 
-    let server = !devserver ? './server/server' : './server/utils/server-dev';
+    let server = !devserver ? './server/server' : './server/flavor/server-dev';
     let out = !devserver ? './dist/' : path.resolve(__dirname, '..', 'build');
 
     let entry = [server];
