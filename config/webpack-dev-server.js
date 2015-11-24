@@ -1,11 +1,7 @@
 require('babel/register');
 
-module.exports = [require('./webpack-config')({
-    client: true,
-  	devserver: true
-  }),
+module.exports =
   require('./webpack-config')({
     server: true,
-    devserver: true
-  })
-];
+    devserver: false
+  });

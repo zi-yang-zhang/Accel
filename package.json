@@ -2,8 +2,8 @@
   "name": "accel-auto",
   "version": "0.0.1",
   "scripts": {
-    "dev": "webpack --config config/webpack-dev.js | webpack-dev-server --port 8080 --config config/webpack-dev.js --hot --history-api-fallback --progress --colors --content-base ./build",
-    "dev-server-client": "webpack --progress --watch --config config/webpack-dev-server.js | webpack-dev-server --port 8081 --config config/webpack-dev-server.js --hot --history-api-fallback --progress --colors --content-base ./build",
+    "build-and-load-dev-client": "webpack --config config/webpack-dev.js | webpack-dev-server --port 8080 --config config/webpack-dev.js --hot --history-api-fallback --progress --colors --content-base ./build",
+    "build-dev-server": "webpack --progress --watch --config config/webpack-dev-server.js --hot --history-api-fallback --progress --colors --content-base ./build",
     "dev-server": "node build/server.js",
     "dev-server-debug": "node-debug --debug-brk build/server.js --debug --source-maps",
     "build": "webpack --config conf/webpack-prod.js --progress --profile --colors",

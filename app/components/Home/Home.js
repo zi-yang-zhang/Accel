@@ -3,23 +3,18 @@
  */
 // LIBRARY
 import React from 'react';
-import ImageGallery from 'react-image-gallery';
-import firstImage from '../../../assets/image/1.jpg';
-import secondImage from '../../../assets/image/2.jpg';
-
-import thirdImage from '../../../assets/image/3.jpg';
-import fourthImage from '../../../assets/image/4.jpg';
-import fifthImage from '../../../assets/image/5.jpg';
-import sixthImage from '../../../assets/image/6.jpg';
 
 import {Modal} from 'react-bootstrap';
-
-
+import HomePagePictureStore from '../../stores/HomePagePictureStore'
+import HomePagePictureActions from '../../actions/HomePagePictureActions'
+import connectToStores from 'alt/utils/connectToStores'
+import ImageGallery from 'react-image-gallery';
 
 if (process.env.BROWSER) {
   require('./Home.less');
 }
-export default class Home extends React.Component {
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,44 +39,32 @@ export default class Home extends React.Component {
   open(){
     this.setState({ showModal: true });
   }
+
+  componentDidMount() {
+    HomePagePictureActions.updatePictures(5);
+  }
+
+  static getStores() {
+    // this will handle the listening/unlistening for you
+    return [HomePagePictureStore]
+  }
+
+  static getPropsFromStores() {
+    // this is the data that gets passed down as props
+    return HomePagePictureStore.getState()
+  }
   render() {
-    const images = [
-      {
-        original:firstImage
-      },
-      {
-        original:secondImage
-      },
-      {
-        original:thirdImage
-      },
-      {
-        original:fourthImage
-      },
-      {
-        original:fifthImage
-      },
-      {
-        original:sixthImage
-      }
-    ];
+
     return (
       <div>
         <ImageGallery
             onSlide={this.handleSlide.bind(this)}
-            items={images}
+            items={this.props.pictures.toArray()}
             autoPlay={true}
             slideInterval={4000}
             showBullets={true}
             showThumbnails={false}
         onClick={this.handleClick.bind(this)}/>
-        <Modal
-            show={this.state.showModal}
-            onHide={this.close.bind(this)}>
-          <Modal.Body>
-            <img src={images[this.state.imageIndex].original}/>
-          </Modal.Body>
-        </Modal>
 
       </div>
     );
@@ -90,4 +73,4 @@ export default class Home extends React.Component {
 
 
 Home.prototype.displayName = 'Home';
-
+export default connectToStores(Home);
