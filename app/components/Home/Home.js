@@ -9,6 +9,7 @@ import HomePagePictureStore from '../../stores/HomePagePictureStore'
 import HomePagePictureActions from '../../actions/HomePagePictureActions'
 import connectToStores from 'alt/utils/connectToStores'
 import ImageGallery from 'react-image-gallery';
+import Immutable, {List} from 'immutable';
 
 if (process.env.BROWSER) {
   require('./Home.less');
@@ -51,15 +52,21 @@ class Home extends React.Component {
 
   static getPropsFromStores() {
     // this is the data that gets passed down as props
-    return HomePagePictureStore.getState()
+    var pictures = [];
+    var pictureUrls = HomePagePictureStore.getState().get('pictures');
+    pictureUrls.forEach((pictureUrl)=>{
+      pictures.push({original:pictureUrl})
+    });
+    return {pictures:pictures}
   }
   render() {
-
+    let storeProps = Home.getPropsFromStores();
     return (
+
       <div>
         <ImageGallery
             onSlide={this.handleSlide.bind(this)}
-            items={this.props.pictures.toArray()}
+            items={storeProps.pictures}
             autoPlay={true}
             slideInterval={4000}
             showBullets={true}

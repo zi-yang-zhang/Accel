@@ -9,8 +9,8 @@ let PictureEndpoints = {
 
 	},
 	fetchMostRecent:(count)=>{
-		return fetch('http://127.0.0.1:3000/api/pictures/'+count, {method: 'GET', headers:{'Access-Control-Allow-Origin': '*'}})
+		return fetch('http://127.0.0.1:3000/api/pictures/'+count, {method: 'GET'})
 	}
-}
+};
 
 export default PictureEndpoints;

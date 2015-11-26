@@ -28,7 +28,9 @@ let picture = {
 
 	getRecentPictures:(req, res, next) => {
 		console.log(req.params.count);
-		res.send(['/image/1.jpg','/image/2.jpg','/image/3.jpg','/image/4.jpg','/image/5.jpg'])
+		res.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+		res.set('Access-Control-Allow-Credentials',true);
+		res.send(['http://127.0.0.1:3000/image/1.jpg','http://127.0.0.1:3000/image/2.jpg','http://127.0.0.1:3000/image/3.jpg','http://127.0.0.1:3000/image/4.jpg','http://127.0.0.1:3000/image/5.jpg'])
 	}
 };
 
