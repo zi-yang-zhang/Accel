@@ -9,7 +9,6 @@ let router = express.Router();
 
 let picture = require('../api/endpoints/picture');
 
-
 router.use('/api/picture/:id', (req, res, next)=>{
 	picture.getPicture(req, res, next);
 });
