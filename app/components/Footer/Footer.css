@@ -1,20 +1,16 @@
-footer{
+footer {
   z-index: 2;
 }
-
-h4.author{
-  position:relative;
-
+h4.author {
+  position: relative;
   margin-top: 10px;
   text-align: center;
   font-family: "Noto Sans", sans-serif;
   margin-left: auto;
   margin-right: auto;
 }
-
-.git-logo{
-  position:relative;
-
+.git-logo {
+  position: relative;
   bottom: 0;
   z-index: 2;
   opacity: 1;

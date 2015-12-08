@@ -9,7 +9,6 @@ import Router from 'react-router';
 
 import HtmlHeaderTags from '../HTMLHeader/HtmlHeaderTags';
 import Header from '../Header/Header';
-import Logo from '../Logo/Logo';
 import Footer from '../Footer/Footer';
 
 if (process.env.BROWSER) {
@@ -25,7 +24,6 @@ export default class App extends React.Component {
     return (
       <div>
         <HtmlHeaderTags />
-        <Logo/>
         <Header/>
         {this.props.children}
         <Footer/>

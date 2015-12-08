@@ -4,8 +4,11 @@
 // LIBRARY
 import React from 'react';
 import { Link } from 'react-router'
-import { Navbar, Nav, NavItem }from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap'
+import { Navbar, Nav, NavItem, NavBrand }from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
+import logo from '../../../assets/logo.png';
+
+import ReactDOM from "react-dom"
 
 if (process.env.BROWSER) {
 	require('./Header.less');
@@ -17,7 +20,12 @@ export default class Header extends React.Component {
 
 	render() {
 		return (
-			<Navbar>
+			<Navbar className="navbar-fixed-top">
+				<NavBrand>
+					<LinkContainer to="/">
+						<img src={logo} alt="logo"/>
+					</LinkContainer>
+				</NavBrand>
 				<Nav>
 					<LinkContainer to="/home">
 						<NavItem>Home</NavItem>
@@ -25,13 +33,13 @@ export default class Header extends React.Component {
 					<LinkContainer to="/contact">
 						<NavItem>Contact</NavItem>
 					</LinkContainer>
-					<LinkContainer to="/service" >
+					<LinkContainer to="/service">
 						<NavItem>Service</NavItem>
 					</LinkContainer>
 					<LinkContainer to="/gallery">
 						<NavItem>Gallery</NavItem>
 					</LinkContainer>
-					<LinkContainer to="/about" >
+					<LinkContainer to="/about">
 						<NavItem>About</NavItem>
 					</LinkContainer>
 				</Nav>

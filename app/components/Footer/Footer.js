@@ -17,7 +17,7 @@ export default class Footer extends React.Component {
 
 	render(){
 		return(
-			<footer>
+			<footer className="navbar-fixed-bottom">
 				<div className="signature-container">
 					<h4 className="author">Made with love</h4>
 					<a href="https://github.com/zi-yang-zhang">
