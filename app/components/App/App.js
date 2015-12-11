@@ -26,7 +26,6 @@ export default class App extends React.Component {
         <HtmlHeaderTags />
         <Header/>
         {this.props.children}
-        <Footer/>
       </div>
     );
   }
