@@ -42,7 +42,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    HomePagePictureActions.updatePictures(5);
+    //HomePagePictureActions.updatePictures(5);
   }
 
   static getStores() {
@@ -53,10 +53,10 @@ class Home extends React.Component {
   static getPropsFromStores() {
     // this is the data that gets passed down as props
     var pictures = [];
-    var pictureUrls = HomePagePictureStore.getState().get('pictures');
-    pictureUrls.forEach((pictureUrl)=>{
-      pictures.push({original:pictureUrl})
-    });
+    //var pictureUrls = HomePagePictureStore.getState().get('pictures');
+    //pictureUrls.forEach((pictureUrl)=>{
+    //  pictures.push({original:pictureUrl})
+    //});
     return {pictures:pictures}
   }
   render() {

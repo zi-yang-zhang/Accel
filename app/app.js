@@ -1,4 +1,6 @@
 // LIBRARY
+import React from 'react';
+
 import {Router} from 'react-router';
 import { render } from 'react-dom'
 
@@ -12,7 +14,8 @@ if(typeof document !== 'undefined' && window) {
     /*eslint-disable no-unused-vars*/
     Iso.bootstrap((state, _, container) => {
       alt.bootstrap(state);
-      render(routes, container)
+      render(<Router routes={routes}/>, container)
+
     });
     /*eslint-enable no-unused-vars*/
   };

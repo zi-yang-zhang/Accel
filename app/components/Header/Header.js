@@ -14,8 +14,8 @@ if (process.env.BROWSER) {
 	require('./Header.less');
 }
 export default class Header extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 	}
 
 	render() {
@@ -30,14 +30,14 @@ export default class Header extends React.Component {
 					<LinkContainer to="/home">
 						<NavItem>Home</NavItem>
 					</LinkContainer>
-					<LinkContainer to="/contact">
-						<NavItem>Contact</NavItem>
-					</LinkContainer>
 					<LinkContainer to="/service">
 						<NavItem>Service</NavItem>
 					</LinkContainer>
 					<LinkContainer to="/gallery">
 						<NavItem>Gallery</NavItem>
+					</LinkContainer>
+					<LinkContainer to="/contact">
+						<NavItem>Contact</NavItem>
 					</LinkContainer>
 					<LinkContainer to="/about">
 						<NavItem>About</NavItem>
