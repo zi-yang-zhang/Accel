@@ -12,6 +12,7 @@ import React from 'react';
 import  ReactDOMServer  from 'react-dom/server'
 import { match, RoutingContext } from 'react-router'
 
+
 // CORE
 import routes from '../../app/routes';
 import alt from '../../app/alt';
@@ -19,21 +20,16 @@ import alt from '../../app/alt';
 let html = '';
 
 var renderer = {
-	//init: (type) => {
-	//	html = type === 'dev' ?
-	//		fs.readFileSync('./assets/index-dev.html', {encoding: 'utf8'})
-	//		:
-	//		fs.readFileSync('./dist/index-prod.html', {encoding: 'utf8'});
-	//},
 	render: (req, res, next) => {
-		html = fs.readFileSync('./template/index-dev.html', {encoding: 'utf8'})
+		html = fs.readFileSync('./dist/index-prod.html', {encoding: 'utf8'});
 
 		let markup = '',
 			iso = new Iso();
 
 		const oneItemBootstraped = {
-			'HomePagePictureStore': {
-				'pictures': ['http://127.0.0.1:3000/image/1.jpg','http://127.0.0.1:3000/image/2.jpg','http://127.0.0.1:3000/image/3.jpg','http://127.0.0.1:3000/image/4.jpg','http://127.0.0.1:3000/image/5.jpg']
+			HomePagePictureStore:
+			{
+				pictures: ['/image/1.jpg', '/image/2.jpg', '/image/3.jpg', '/image/4.jpg', '/image/5.jpg']
 			}
 		};
 
@@ -46,12 +42,13 @@ var renderer = {
 		 */
 		alt.bootstrap(JSON.stringify(res.locals.data || oneItemBootstraped));
 		match({routes, location:req.url}, (error, redirectionLocation, renderProps)=>{
-		console.log("renderProps: "+renderProps);
 			if(error){
 				res.status(500).send(error.message)
 			}else if(redirectionLocation){
 				res.redirect(redirectLocation.pathname + redirectLocation.search)
 			}else if(renderProps){
+				console.log("renderProps: "+renderProps);
+
 				let content = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />);
 				iso.add(content, alt.flush());
 				res.contentType = 'text/html; charset=utf8';

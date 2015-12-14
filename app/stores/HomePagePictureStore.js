@@ -7,7 +7,7 @@ import Immutable, {List, Map} from 'immutable';
 import PictureEndpoints from '../endpoints/PictureEndpoints';
 import alt from '../alt';
 
-export default alt.createStore(class HomePagePictureStore {
+class HomePagePictureStore {
 	constructor(){
 		this.state = new Map({
 			pictures: []
@@ -21,7 +21,13 @@ export default alt.createStore(class HomePagePictureStore {
 			.then((res) => {
 				return res.json();
 			}).then((json) => {
-				this.setState(this.state.set('pictures', json))
+				var pictures = [];
+				json.forEach((pictureUrl)=>{
+				  pictures.push({original:pictureUrl})
+				});
+				this.setState(this.state.set('pictures', pictures))
 			});
 		};
-})
+}
+
+export default alt.createStore(HomePagePictureStore)

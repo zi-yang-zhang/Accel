@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "scripts": {
     "build-and-load-dev-client": "webpack --config config/webpack-dev.js | webpack-dev-server --port 8080 --config config/webpack-dev.js --hot --history-api-fallback --progress --colors --content-base ./build",
-    "build-dev-server": "webpack --progress --config config/webpack-dev-server.js --hot --history-api-fallback --progress --colors ",
+    "build-dev-server": "webpack --progress --config config/webpack-prod.js --hot --history-api-fallback --colors ",
     "dev-server": "node build/server.js",
-    "dev-server-debug": "node-debug --debug-brk build/server.js --debug --source-maps",
-    "build": "webpack --config conf/webpack-prod.js --progress --profile --colors",
+    "dev-server-debug": "node-debug --debug-brk dist/server.js --debug --source-maps",
+    "build": "webpack --config config/webpack-prod.js --progress --profile --colors",
     "start": "node dist/server.js"
   },
   "devDependencies": {
@@ -55,6 +55,7 @@
     "node-fetch": "^1.2.1",
     "object-assign": "^2.0.0",
     "react": "^0.14.2",
+    "react-addons-css-transition-group": "^0.14.2",
     "react-helmet": "^1.1.0",
     "react-router": "^1.0.0",
     "serve-favicon": "^2.2.1",

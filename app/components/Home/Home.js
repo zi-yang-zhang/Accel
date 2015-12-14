@@ -9,13 +9,13 @@ import HomePagePictureStore from '../../stores/HomePagePictureStore'
 import HomePagePictureActions from '../../actions/HomePagePictureActions'
 import connectToStores from 'alt/utils/connectToStores'
 import ImageGallery from 'react-image-gallery';
-import Immutable, {List} from 'immutable';
+import Immutable, { Map} from 'immutable';
 
 if (process.env.BROWSER) {
   require('./Home.less');
 }
 
-class Home extends React.Component {
+let home = class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +42,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    //HomePagePictureActions.updatePictures(5);
+    HomePagePictureActions.updatePictures(5);
   }
 
   static getStores() {
@@ -52,21 +52,17 @@ class Home extends React.Component {
 
   static getPropsFromStores() {
     // this is the data that gets passed down as props
-    var pictures = [];
-    //var pictureUrls = HomePagePictureStore.getState().get('pictures');
-    //pictureUrls.forEach((pictureUrl)=>{
-    //  pictures.push({original:pictureUrl})
-    //});
-    return {pictures:pictures}
+    return HomePagePictureStore.getState()
   }
   render() {
-    let storeProps = Home.getPropsFromStores();
+    let display = Home.getPropsFromStores();
+    console.log(display);
     return (
 
       <div>
         <ImageGallery
             onSlide={this.handleSlide.bind(this)}
-            items={storeProps.pictures}
+            items={display.get('pictures')}
             autoPlay={true}
             slideInterval={4000}
             showBullets={true}
@@ -79,5 +75,8 @@ class Home extends React.Component {
 }
 
 
-Home.prototype.displayName = 'Home';
-export default connectToStores(Home);
+home.prototype.displayName = 'Home';
+
+//home.propTypes = {pictures: React.PropTypes.instanceOf(Map)};
+//home.defaultProps = {pictures: new Map()};
+export default connectToStores(home);

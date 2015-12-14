@@ -19,10 +19,6 @@ function extractForProduction(loaders) {
   return ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')));
 }
 
-// stats
-let excludeFromStats = [
-    /node_modules[\\\/]react(-router)?[\\\/]/
-];
 
 // common configs
 let config = {
@@ -46,13 +42,12 @@ module.exports = function(options) {
       devserver = options.devserver,
       prod = options.production;
 
-  config.devtool = !prod ? "#inline-source-map" : false;
+  config.devtool = prod ? false: "#inline-source-map";
 
   // STYLE LOADERS
   let cssLoaders = 'style-loader!css-loader',
       lessLoaders = 'style!css!less',
-      sassLoaders = 'style!css!sass?indentedSyntax',
-      scssLoaders = 'style!css!sass';
+      sassLoaders = 'style!css!sass?indentedSyntax';
 
   // INIT PLUGINS
   let plugins = [new webpack.NoErrorsPlugin()];
@@ -61,8 +56,7 @@ module.exports = function(options) {
   let cleanDirectories = ['build', 'dist'];
 
   // html template
-  let suffix = '',
-      outputPath = path.join(root_dir, 'build');
+  let clientOut = path.join(root_dir, 'build');
 
   let processVars = {
     'process.env':{}
@@ -70,44 +64,46 @@ module.exports = function(options) {
 
   // PRODUCTION CASE
   if (prod) {
+
     // WRAP INTO CSS FILE
     cssLoaders = extractForProduction(cssLoaders);
     sassLoaders = extractForProduction(sassLoaders);
-    scssLoaders = extractForProduction(scssLoaders);
+    lessLoaders = extractForProduction(lessLoaders);
 
-    suffix = '-prod';
     plugins.push(new webpack.PrefetchPlugin("react"));
     plugins.push(new ExtractTextPlugin("app-[hash].css"));
     processVars['process.env'].NODE_ENV = JSON.stringify('production');
 
-    outputPath = path.join(root_dir, 'dist');
+    clientOut = path.join(root_dir, 'dist');
+
+    //plugins.push(new webpack.optimize.UglifyJsPlugin({warnings: false, minimize: true, sourceMap: false}));
+    //plugins.push(new webpack.optimize.AggressiveMergingPlugin())
+
   }
 
   // HTML TEMPLATE + ENV VARIABLE
   if (client) {
-    suffix = !devserver ? suffix : '-dev';
+
     processVars['process.env'].BROWSER = JSON.stringify(true);
     plugins.push(new Clean(cleanDirectories, root_dir));
     plugins.push(new webpack.DefinePlugin(processVars));
     plugins.push(new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'));
     plugins.push(new webpack.optimize.DedupePlugin());
     plugins.push(new webpack.optimize.OccurenceOrderPlugin(true));
-    if (prod) {
-      plugins.push(new webpack.optimize.UglifyJsPlugin({warnings: false, minimize: true, sourceMap: false}));
-      plugins.push(new webpack.optimize.AggressiveMergingPlugin());
-    }
     plugins.push(
-      new HtmlWebpackPlugin({
-        filename: 'index'+suffix+'.html',
-        template: 'assets/index'+suffix+'.html'
-      })
+        new HtmlWebpackPlugin({
+          filename: prod? 'index-prod.html':'index.html',
+          template: prod? 'template/index-prod.html':'template/index.html'
+        })
     );
+
+
   }
 
   // small hash for production resources
   let hash = prod ? '-[hash]': '',
-      publicPath = !devserver ? '/' : 'http://127.0.0.1:8081/',
-      devMainClientApp = prod || devserver ? './app' : './app-dev';
+      publicPath = '/',
+      devMainClientApp = prod? './app' : './app-dev';
 
   if (client) {
     // CLIENT
@@ -118,7 +114,7 @@ module.exports = function(options) {
         vendors: ['classnames', 'iso', 'react', 'react-helmet', 'react-router', 'react-hot-loader', 'whatwg-fetch']
       },
       output: {
-          path: outputPath,
+          path: clientOut,
           filename: 'app'+hash+'.js',
           publicPath: publicPath
       },
@@ -126,23 +122,22 @@ module.exports = function(options) {
       module: {
         loaders: [
           { test: /\.js?$/, loaders: ['react-hot', 'babel'], exclude: [/node_modules/, /__tests__/] },
-          { test: /\.(jpe?g|png|gif|svg|woff|eot|ttf|jpg)$/, loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]' },
-          { test: /.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, loader: 'url-loader?limit=100000' },
+          { test: /\.(jpe?g|png|gif|svg|woff(2|z)?|eot|ttf)$/, loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]' },
           { test: /\.sass$/, loader: sassLoaders },
           { test: /\.css$/, loader: cssLoaders },
-          { test: /\.less$/,  loader: 'style!css!less'},
+          { test: /\.less$/,  loader: lessLoaders},
           { test: /\.json$/, loader: 'json'}
         ]
       },
       plugins: plugins,
-      root: outputPath
+      root: clientOut
     });
   }
   else {
     // SERVER
 
     let server = !devserver ? './server/server' : './server/flavor/server-dev';
-    let out = !devserver ? './dist/' : path.resolve(__dirname, '..', 'build');
+    let serverOut = './dist/';
 
     let entry = [server];
     config.recordsPath = path.resolve(__dirname, '..', 'build/webpack.records.json');
@@ -152,11 +147,14 @@ module.exports = function(options) {
       //entry.push('webpack/hot/signal.js');
       entry.push('webpack/hot/poll?1000');
     }
+    if (!prod){
+      plugins.push(new Clean(serverOut, root_dir));
+    }
 
     return _.merge({}, config, {
       entry: entry,
        output: {
-        path: out,
+        path: serverOut,
         filename: 'server.js',
         libraryTarget: 'commonjs2',
         publicPath: publicPath
@@ -173,11 +171,11 @@ module.exports = function(options) {
       },
       module : {
         loaders: [
-          { test: /\.(jsx?|js)$/, loaders: ['react-hot', 'babel'], exclude: [/node_modules/, /__tests__/] },
-          { test: /\.(jpe?g|png|gif|svg|woff|eot|ttf)$/, loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]' },
+          { test: /\.js?$/, loaders: ['react-hot', 'babel'], exclude: [/node_modules/, /__tests__/] },
+          { test: /\.(jpe?g|png|gif|svg|woff(2|z)?|eot|ttf)$/, loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]' },
           { test: /\.sass$/, loader: sassLoaders },
           { test: /\.css$/, loader: cssLoaders },
-          { test: /\.scss$/, loader: scssLoaders },
+          { test: /\.less$/,  loader: lessLoaders},
           { test: /\.json$/, loader: 'json'}
         ]
       },

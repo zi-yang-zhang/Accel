@@ -6,6 +6,7 @@ import { render } from 'react-dom'
 
 // DEPENDENCY
 import alt from './alt';
+import Iso from 'iso';
 
 let routes = require('./routes');
 
