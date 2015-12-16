@@ -9,9 +9,9 @@ import alt from '../alt';
 
 class HomePagePictureStore {
 	constructor(){
-		this.state = new Map({
+		this.state = {
 			pictures: []
-		});
+		};
 		this.bindActions(PictureActions)
 	}
 
@@ -25,7 +25,7 @@ class HomePagePictureStore {
 				json.forEach((pictureUrl)=>{
 				  pictures.push({original:pictureUrl})
 				});
-				this.setState(this.state.set('pictures', pictures))
+				this.setState({pictures:pictures})
 			});
 		};
 }

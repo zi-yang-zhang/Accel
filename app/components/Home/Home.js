@@ -56,13 +56,11 @@ let home = class Home extends React.Component {
   }
   render() {
     let display = Home.getPropsFromStores();
-    console.log(display);
     return (
-
       <div>
         <ImageGallery
             onSlide={this.handleSlide.bind(this)}
-            items={display.get('pictures')}
+            items={display.pictures}
             autoPlay={true}
             slideInterval={4000}
             showBullets={true}

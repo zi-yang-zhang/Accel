@@ -11,8 +11,6 @@ import Iso from 'iso';
 import React from 'react';
 import  ReactDOMServer  from 'react-dom/server'
 import { match, RoutingContext } from 'react-router'
-
-
 // CORE
 import routes from '../../app/routes';
 import alt from '../../app/alt';
@@ -26,10 +24,9 @@ var renderer = {
 		let markup = '',
 			iso = new Iso();
 
-		const oneItemBootstraped = {
-			HomePagePictureStore:
-			{
-				pictures: ['/image/1.jpg', '/image/2.jpg', '/image/3.jpg', '/image/4.jpg', '/image/5.jpg']
+		const bootstrapItems = {
+			HomePagePictureStore: {
+				pictures:[]
 			}
 		};
 
@@ -40,7 +37,7 @@ var renderer = {
 		 on the client side and bootstraps the stores.
 		 init server renderer
 		 */
-		alt.bootstrap(JSON.stringify(res.locals.data || oneItemBootstraped));
+		alt.bootstrap(JSON.stringify(res.locals.data || bootstrapItems));
 		match({routes, location:req.url}, (error, redirectionLocation, renderProps)=>{
 			if(error){
 				res.status(500).send(error.message)
